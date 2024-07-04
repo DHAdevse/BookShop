@@ -1,19 +1,17 @@
 package org.example.bookshoponlinewebsite.controllers;
 
 import org.example.bookshoponlinewebsite.models.Book;
-import org.example.bookshoponlinewebsite.repositories.BookRepository;
 import org.example.bookshoponlinewebsite.services.BookService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import java.util.List;
 
 @Controller
-@RequestMapping("book")
+
 public class BookController {
     @Autowired
     private BookService bookService;
@@ -30,10 +28,18 @@ public class BookController {
 //        model.addAttribute("books", bookList);
 //        return "index";
 //    }
-    @GetMapping("/{id}")
-    public String bookDetails(@PathVariable("id") String id, Model model) {
-        Book book = bookService.getBookById(id);
-        model.addAttribute("book", book);
-        return "detail";
-    }
+//    @GetMapping("/book/{id}")
+//    public String bookDetails(@PathVariable("id") String id, Model model) {
+//        Book currentBook = bookService.getBookById(id);
+//        List<Book> bookList = bookService.getAllBook();
+//        int currentIndex = bookList.indexOf(currentBook);
+//
+//        String prevId = currentIndex > 0 ? bookList.get(currentIndex - 1).getBookId() : bookList.getLast().getBookId();
+//        String nextId = currentIndex < bookList.size() - 1 ? bookList.get(currentIndex + 1).getBookId() : bookList.getFirst().getBookId();
+//
+//        model.addAttribute("book", currentBook);
+//        model.addAttribute("prevId", prevId);
+//        model.addAttribute("nextId", nextId);
+//        return "detail";
+//    }
 }

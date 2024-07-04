@@ -6,7 +6,6 @@ import org.example.bookshoponlinewebsite.services.DiscountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.UUID;
 @Service
 public class DiscountServiceImpl implements DiscountService {
     @Autowired
@@ -17,7 +16,7 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
-    public Discount getDiscountbyId(UUID id) {
+    public Discount getDiscountbyId(String id) {
         return dis.getReferenceById(id);
     }
 
@@ -27,7 +26,7 @@ public class DiscountServiceImpl implements DiscountService {
     }
 
     @Override
-    public boolean deleteDiscount(UUID id) {
+    public boolean deleteDiscount(String id) {
         if(dis.existsById(id))
         {
             dis.deleteById(id);

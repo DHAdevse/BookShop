@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="utf-8">
-    <title>EShopper - Bootstrap Shop Template</title>
+    <title>BOOK SHOP - DHA</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
     <meta content="Free HTML Templates" name="description">
@@ -119,8 +119,15 @@
                             <a href="contact" class="nav-item nav-link active">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
-                            <a href="login" class="nav-item nav-link">Login</a>
-                            <a href="" class="nav-item nav-link">Register</a>
+
+                            <span th:if="${session.authUser!=null}" class="nav-item nav-link">
+                                Welcome, <span th:text="${session.authUser.getFirstName()}">User</span>!
+                            </span>
+                            <a th:if="${session.authUser==null}" href="login" class="nav-item nav-link">Login</a>
+                            <a th:if="${session.authUser==null}" href="register" class="nav-item nav-link">Register</a>
+                            <form th:if="${session.authUser!=null}" th:action="@{/logout}" method="post">
+                                <button type="submit" class="nav-item nav-link btn btn-link">Logout</button>
+                            </form>
                         </div>
                     </div>
                 </nav>
@@ -135,7 +142,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 300px">
             <h1 class="font-weight-semi-bold text-uppercase mb-3">Contact Us</h1>
             <div class="d-inline-flex">
-                <p class="m-0"><a href="">Home</a></p>
+                <p class="m-0"><a href="/">Home</a></p>
                 <p class="m-0 px-2">-</p>
                 <p class="m-0">Contact</p>
             </div>

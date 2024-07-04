@@ -1,18 +1,12 @@
 package org.example.bookshoponlinewebsite;
 
-import org.example.bookshoponlinewebsite.models.*;
 import org.example.bookshoponlinewebsite.services.*;
-import org.example.bookshoponlinewebsite.utils.*;
+import org.example.bookshoponlinewebsite.utils.GenerateID;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.io.ResourceLoader;
-
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.List;
 
 @SpringBootApplication
 public class BookShopOnlineWebsiteApplication {

@@ -2,9 +2,12 @@ package org.example.bookshoponlinewebsite.models;
 
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 @NoArgsConstructor
@@ -36,7 +39,14 @@ public class User {
     private Favorite favorite;
     @OneToMany(fetch = FetchType.LAZY, cascade ={CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.DETACH})
     private List<Invoice> invoiceList;
-    @OneToOne(fetch = FetchType.LAZY)
-    private Role role;
+    @OneToMany(fetch = FetchType.EAGER)
+    private Collection<Role> role;
 
+    public User(String username, String password, String firstName,String lastName,String email){
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+    }
 }

@@ -2,44 +2,59 @@
 <html lang = "en" xmlns:th ="http://www.thymeleaf.org">
 	<head>
 		<meta charset="utf-8">
-		<title>RegistrationForm_v2 by Colorlib</title>
+		<title>BOOK SHOP - DHA</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 		<!-- MATERIAL DESIGN ICONIC FONT -->
-		<link rel="stylesheet" href="register/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
+		<link rel="stylesheet" href="registerpage/fonts/material-design-iconic-font/css/material-design-iconic-font.min.css">
 
 		<!-- STYLE CSS -->
-		<link rel="stylesheet" href="register/css/style.css">
+		<link rel="stylesheet" href="registerpage/css/style.css">
 	</head>
 
 	<body>
 
-		<div class="wrapper" style="background-image: url('register/images/bg.jpg');">
+		<div class="wrapper" style="background-image: url('registerpage/images/bg.jpg');">
 			<div class="inner">
-				<form action="">
+				<form th:action="@{/register}" th:object="${user}" method="post">
 					<h3>Registration Form</h3>
+					<!-- Thêm đoạn này để hiển thị lỗi chung -->
+					<div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">
+						<p th:each="err : ${#fields.errors('global')}" th:text="${err}"></p>
+					</div>
 					<div class="form-group">
 						<div class="form-wrapper">
-							<label for="">First Name</label>
-							<input type="text" class="form-control">
+							<label for="firstname">First Name</label>
+							<input type="text" class="form-control" th:field="*{firstName}" id="firstname" required>
 						</div>
 						<div class="form-wrapper">
-							<label for="">Last Name</label>
-							<input type="text" class="form-control">
+							<label for="lastname">Last Name</label>
+							<input type="text" class="form-control" th:field="*{lastName}" id = "lastname" required>
 						</div>
 					</div>
 					<div class="form-wrapper">
-						<label for="">Email</label>
-						<input type="text" class="form-control">
+						<label for="email">Email</label>
+						<input type="text" class ="form-control" th:field="*{email}" id="email" required>
+						<span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span>
 					</div>
 					<div class="form-wrapper">
-						<label for="">Password</label>
-						<input type="password" class="form-control">
+						<label for="username">Username</label>
+						<input type="text" class="form-control" th:field="*{username}" id ="username" required>
+						<span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red"></span>
 					</div>
-					<div class="form-wrapper">
-						<label for="">Confirm Password</label>
-						<input type="password" class="form-control">
+					<div class="form-group">
+						<div class="form-wrapper">
+							<label for="password">Password</label>
+							<input type="password" class="form-control" th:field="*{password}" id="password" required>
+							<span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span>
+
+						</div>
+						<div class="form-wrapper">
+							<label for="confirmpassword">Confirm Password</label>
+							<input type="password" class="form-control" th:field="*{confirmPassword}" id="confirmpassword" required>
+						</div>
 					</div>
+
 					<div class="checkbox">
 						<label>
 							<input type="checkbox"> I accept the Terms of Use & Privacy Policy.
@@ -50,6 +65,7 @@
 				</form>
 			</div>
 		</div>
+
 
 	</body>
 </html>
