@@ -9,9 +9,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CartServiceImpl implements CartService {
     @Autowired
-    CartRepository cartRepository;
+    private CartRepository cartRepository;
     @Override
     public Cart saveAndFlush(Cart cart) {
         return cartRepository.saveAndFlush(cart);
+    }
+    @Override
+    public Cart getCartByUserId(String UserId) {
+        return cartRepository.getReferenceById(UserId);
     }
 }

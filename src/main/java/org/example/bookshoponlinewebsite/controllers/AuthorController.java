@@ -4,28 +4,15 @@ import org.example.bookshoponlinewebsite.enums.ErrorResponse;
 import org.example.bookshoponlinewebsite.models.Author;
 import org.example.bookshoponlinewebsite.services.AuthorService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.ui.Model;
-import java.util.List;
 
 @Controller
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
-//    @GetMapping("all")
-//    public String getAllAuthor(Model model)
-//    {
-//        try {
-//            List<Author> authorList = authorService.getAllAuthor();
-//            model.addAttribute("authors",authorList);
-//            return "index";
-//        }catch(Exception e)
-//        {
-//            return "index";
-//        }
-//    }
     @GetMapping("search/{name}")
     public String getAuthorByName(@PathVariable("name") String name)
     {

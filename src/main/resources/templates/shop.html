@@ -81,7 +81,7 @@
                     <i class="fas fa-heart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
-                <a href="" class="btn border">
+                <a href="cart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
                     <span class="badge">0</span>
                 </a>
@@ -255,7 +255,7 @@
                     <div th:each="book : ${books}" class="col-lg-4 col-md-6 col-sm-12 pb-1">
                         <div class="card product-item border-0 mb-4 h-100">
                             <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                                <a th:href="@{'//' + ${book.getBookId()}}" class="book-image-container d-block mx-auto">
+                                <a th:href="@{'/book/' + ${book.getBookId()}}" class="book-image-container d-block mx-auto">
                                     <img class="img-fluid" th:src="${book.getImageBook() != null ? (book.getImageBook().startsWith('/') ? book.getImageBook() : '/img/book_Images/' + book.getImageBook()) : '/img/img.png'}" alt="">
                                 </a>
                                 <p class="position-absolute top-0 right-0 bg-secondary text-white px-2 py-1" th:if="${book.getStock() != null and book.getStock().getQuantity() > 0}"

@@ -4,4 +4,5 @@ import org.example.bookshoponlinewebsite.models.Cart;
 
 public interface CartService {
     public Cart saveAndFlush(Cart cart);
+    public Cart getCartByUserId(String id);
 }

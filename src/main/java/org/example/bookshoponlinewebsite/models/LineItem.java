@@ -14,6 +14,6 @@ public class LineItem {
     private String lineItemId;
     @Column(name="quantity")
     private int quantity;
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Book book;
 }

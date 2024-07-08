@@ -19,24 +19,6 @@ public class BookShopOnlineWebsiteApplication {
 											   StockService stockService,CategoryService categoryService, PublisherService publisherService, BookService bookService)
 	{
 		return runner->{
-			// ========================== AUTHOR ============================= //
-//			Author author1 = new Author();
-//			author1.setAuthorName("John Doe");
-//			author1.setAuthorId("AUTH00002");
-//			author1.setDob(new Date(70, 5, 15)); // Ngày 15 tháng 6 năm 1990
-//			authorService.addAuthor(author1);
-//
-//			Author author2 = new Author();
-//			author2.setAuthorName("Nguyen Nhat Anh");
-//			author2.setAuthorId("AUTH00001");
-//			author2.setDob(new Date(60, 6, 17)); // Ngày 15 tháng 6 năm 1990
-//			authorService.addAuthor(author2);
-//			Author author3 = new Author();
-//			author3.setAuthorName("Kim Dong");
-//			author3.setAuthorId("AUTH00003");
-//			author3.setDob(new Date(90, 5, 15)); // Ngày 15 tháng 6 năm 1990
-//			authorService.addAuthor(author3);
-//
 //			// ========================== USER ============================= //
 //			// User 1
 //
@@ -106,7 +88,25 @@ public class BookShopOnlineWebsiteApplication {
 //			user5.setPhoneNumber("555-7890");
 //			userService.addUser(user5);
 //
-//			// ========================== CATEGORY ============================= //
+			// ========================== AUTHOR ============================= //
+//			Author author1 = new Author();
+//			author1.setAuthorName("John Doe");
+//			author1.setAuthorId("AUTH00002");
+//			author1.setDob(new Date(70, 5, 15)); // Ngày 15 tháng 6 năm 1990
+//			authorService.addAuthor(author1);
+//
+//			Author author2 = new Author();
+//			author2.setAuthorName("Nguyen Nhat Anh");
+//			author2.setAuthorId("AUTH00001");
+//			author2.setDob(new Date(60, 6, 17)); // Ngày 15 tháng 6 năm 1990
+//			authorService.addAuthor(author2);
+//			Author author3 = new Author();
+//			author3.setAuthorName("Kim Dong");
+//			author3.setAuthorId("AUTH00003");
+//			author3.setDob(new Date(90, 5, 15)); // Ngày 15 tháng 6 năm 1990
+//			authorService.addAuthor(author3);
+//
+////			// ========================== CATEGORY ============================= //
 //			Category category1 = new Category();
 //			category1.setCategoryName("Drama");
 //			category1.setCategoryId("CATE00001");
@@ -132,8 +132,8 @@ public class BookShopOnlineWebsiteApplication {
 //			categoryService.addCategory(category3);
 //			categoryService.addCategory(category4);
 //			categoryService.addCategory(category5);
-//
-//		// ========================== PUBLISHER ============================= //
+////
+////		// ========================== PUBLISHER ============================= //
 //			Publisher publisher1 = new Publisher();
 //			publisher1.setPublisherName("Random House");
 //			publisher1.setPublisherId("PUBL00001");
@@ -158,9 +158,9 @@ public class BookShopOnlineWebsiteApplication {
 //			publisherService.addPublisher(publisher3);
 //			publisherService.addPublisher(publisher4);
 //			publisherService.addPublisher(publisher5);
-
-		// ========================== BOOK ============================= //
-			// BOOK 1 : THE WOMEN : A NOVEL
+//
+//		// ========================== BOOK ============================= //
+//			// BOOK 1 : THE WOMEN : A NOVEL
 //			Book the_women = new Book();
 //
 //			the_women.setBookId("BOOK00010");
@@ -170,12 +170,12 @@ public class BookShopOnlineWebsiteApplication {
 //			double importPrice = 11.0;
 //			the_women.setSellPrice(importPrice * 1.2);
 //			the_women.setImageBook("hoangtube.png");
-//			bookService.addBook(the_women);
+//			bookService.save(the_women);
 //
 //			List<Book> bookList1 = new ArrayList<>();
 //			bookList1.add(the_women);
 //			author1.setBookList(bookList1);
-//			the_women.setAuthor(new ArrayList<>(Arrays.asList(author3, author2)));
+//			the_women.setAuthor(new ArrayList<>(Arrays.asList(author2)));
 //			the_women.setCategory(category1);
 //			the_women.setPublisher(publisher1);
 ////			 add book to stock
@@ -184,14 +184,12 @@ public class BookShopOnlineWebsiteApplication {
 //			stock.setQuantity(100);
 //			the_women.setStock(stock);
 //			stockService.saveAndFlush(stock);
-
+//
 //			stock.setBook(the_women);
 //			stock.setQuantity(100);
 //			stock.setImportPrice(importPrice);
-//			stockService.save(stock);
-//			bookService.merge(the_women);
-
-
+//			stockService.saveAndFlush(stock);
+//			bookService.save(the_women);
 
 		};
 	}

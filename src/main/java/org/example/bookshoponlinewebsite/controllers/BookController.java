@@ -22,24 +22,14 @@ public class BookController {
         model.addAttribute("booksOfCategory", listBookOfCategory);
         return "index";
     }
-//    @GetMapping("")
-//    public String GetAllBook(Model model){
-//        List<Book> bookList = bookService.getAllBook();
-//        model.addAttribute("books", bookList);
-//        return "index";
-//    }
-//    @GetMapping("/book/{id}")
-//    public String bookDetails(@PathVariable("id") String id, Model model) {
-//        Book currentBook = bookService.getBookById(id);
-//        List<Book> bookList = bookService.getAllBook();
-//        int currentIndex = bookList.indexOf(currentBook);
-//
-//        String prevId = currentIndex > 0 ? bookList.get(currentIndex - 1).getBookId() : bookList.getLast().getBookId();
-//        String nextId = currentIndex < bookList.size() - 1 ? bookList.get(currentIndex + 1).getBookId() : bookList.getFirst().getBookId();
-//
-//        model.addAttribute("book", currentBook);
-//        model.addAttribute("prevId", prevId);
-//        model.addAttribute("nextId", nextId);
-//        return "detail";
-//    }
+    @GetMapping({"/book/{bookId}"})
+    public String bookdetail(@PathVariable String bookId, Model model){
+        Book book = bookService.getBookById(bookId);
+        if(book != null)
+        {
+            model.addAttribute("book",book);
+            return "bookdetail";
+        }
+       return "/";
+    }
 }

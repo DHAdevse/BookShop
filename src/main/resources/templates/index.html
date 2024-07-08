@@ -3,6 +3,7 @@
 
 <head>
     <meta charset="utf-8">
+    <base href="http://localhost:8080/">
     <title>BOOK SHOP - DHA</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="Free HTML Templates" name="keywords">
@@ -250,7 +251,7 @@
                 <div class="cat-item d-flex flex-column border mb-4" style="padding: 15px;">
                     <div class="position-relative mb-3">
                         <p class="position-absolute top-0 end-0 bg-danger text-white px-2 py-1 m-2 small" th:if="${book.getStock() == null or book.getStock().getQuantity() == 0}">Sold out</p>
-                        <a th:href="@{'//' + ${book.getBookId()}}" class="book-image-container d-block mx-auto">
+                        <a th:href="@{'/book/' + ${book.getBookId()}}" class="book-image-container d-block mx-auto">
                             <img class="img-fluid" th:src="${book.getImageBook() != null ? (book.getImageBook().startsWith('/') ? book.getImageBook() : '/img/book_Images/' + book.getImageBook()) : '/img/img.png'}" alt="">
                         </a>
                     </div>
@@ -297,7 +298,7 @@
             <div th:each="book : ${books}" th:if="${#dates.year(#dates.createNow()) - #dates.year(book.getPublishDate()) <=1}" class="col-lg-3 col-md-6 col-sm-12 pb-1">
                 <div class="card product-item border-0 mb-4 h-100">
                     <div class="card-header product-img position-relative overflow-hidden bg-transparent border p-0">
-                        <a th:href="@{'//' + ${book.getBookId()}}" class="book-image-container d-block mx-auto">
+                        <a th:href="@{'/book/' + ${book.getBookId()}}" class="book-image-container d-block mx-auto">
                             <img class="img-fluid" th:src="${book.getImageBook() != null ? (book.getImageBook().startsWith('/') ? book.getImageBook() : '/img/book_Images/' + book.getImageBook()) : '/img/img.png'}" alt="">
                         </a>
                     </div>
@@ -306,13 +307,18 @@
                         <div class="d-flex justify-content-center">
                             <h6 th:text="${'$' + #numbers.formatDecimal(book.getSellPrice(), 1, 'COMMA', 2, 'POINT')}">$123.00</h6>
                             <h6 class="text-muted ml-2" th:if="${book.getSellPrice()*120/100}">
-                                <del th:text="${'$' + #numbers.formatDecimal(book.getSellPrice()*110/100, 1, 'COMMA', 2, 'POINT')}">$123.00</del>
+                                <del th:text="${'$' + #numbers.formatDecimal(book.getSellPrice()*120/100, 1, 'COMMA', 2, 'POINT')}">$123.00</del>
                             </h6>
                         </div>
                     </div>
                     <div class="card-footer d-flex justify-content-between bg-light border">
-                        <a href="/wishlist" class="btn btn-sm text-dark p-0"><i class="fas fa-heart text-primary mr-1"></i>Add To Wishlist</a>
-                        <a href="/cart" class="btn btn-sm text-dark p-0"><i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart</a>
+                        <a th:href="@{${session.authUser != null ? '/wishlist' : '/login'}}" class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-heart text-primary mr-1"></i>Add To Wishlist
+                        </a>
+                        <a th:href="@{${session.authUser != null ? '/cart/add-to-cart/' + book.getBookId() + '/1' : '/login'}}"
+                           class="btn btn-sm text-dark p-0">
+                            <i class="fas fa-shopping-cart text-primary mr-1"></i>Add To Cart
+                        </a>
                     </div>
                 </div>
             </div>

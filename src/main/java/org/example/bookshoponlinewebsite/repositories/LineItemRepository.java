@@ -9,4 +9,5 @@ import java.util.List;
 @Repository
 public interface LineItemRepository extends JpaRepository<LineItem,String> {
     public List<LineItem> getLineItemsByLineItemId(String userId);
+
 }

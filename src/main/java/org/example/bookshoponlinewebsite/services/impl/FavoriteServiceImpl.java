@@ -25,4 +25,9 @@ public class FavoriteServiceImpl implements FavoriteService {
     public Favorite saveAndFlush(Favorite favorite) {
         return favoriteRepository.saveAndFlush(favorite);
     }
+
+    @Override
+    public Favorite getFavoriteByUserId(String userId) {
+        return favoriteRepository.getFavoriteByUserId(userId);
+    }
 }
