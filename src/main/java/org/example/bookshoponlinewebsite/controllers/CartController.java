@@ -37,7 +37,7 @@ public class CartController {
         return "cart";
     }
 
-    @GetMapping("add-to-cart/")
+    @GetMapping("add-to-cart/{bookId}/{quantity}")
     public String addCart(HttpSession session,
                           @PathVariable("bookId") String bookId,
                           @PathVariable(value = "quantity", required = false) Integer quantity,
@@ -51,10 +51,6 @@ public class CartController {
         // Thêm sản phẩm vào giỏ hàng
         // Giả sử bạn có một service để lấy thông tin sản phẩm
         Book book= bookService.getBookById(bookId);
-        if (book == null) {
-            redirect.addFlashAttribute("error", "Book does not exist");
-            return "redirect:/book";
-        }
         if(book.getStock().getQuantity()<quantity){
             if(book.getStock().getQuantity()<1)
             {
@@ -66,14 +62,12 @@ public class CartController {
             }
             return "redirect:/book/"+ book.getBookId();
         }
-
         // Lấy giỏ hàng từ session hoặc tạo mới nếu chưa có
         Cart cart =(Cart) session.getAttribute("cart");
         if (cart == null) {
             cart = new Cart();
             session.setAttribute("cart", cart);
         }
-
         // Check the book was in cart??
         for(LineItem lineItem: cart.getLineItemList())
         {
@@ -105,11 +99,52 @@ public class CartController {
 
         // Thêm thông báo thành công
         redirect.addFlashAttribute("success", "Add to cart successfully!!!");
-        return "redirect:/cart";
+        return "cart";
     }
-//    @GetMapping("update-cart")
-//    public String updateCart(HttpSession session, @PathVariable("bookId") String bookId, @PathVariable("quantity") int quantity)
-//    {
-//
-//    }
+    @GetMapping("update-cart/{lineItemId}/{quantity}")
+    public String updateCart(HttpSession session, @PathVariable("lineItemId") String lineItemId, @PathVariable(value= "quantity",required=false) Integer quantity,RedirectAttributes redirect)
+    {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if (cart == null) {
+            redirect.addFlashAttribute("error", "Cart not found");
+            return "redirect:/cart";
+        }
+        LineItem itemUpdate = lineItemService.getLineItem(lineItemId);
+        Book book = itemUpdate.getBook();
+
+        if(quantity==null || quantity ==0 || book.getStock().getQuantity()<=0 || book.getStock().getQuantity()==null) {
+            cart.removeLineItem(itemUpdate);
+            cartService.saveAndFlush(cart);
+            return "cart";
+        }
+        if (itemUpdate.getQuantity() > book.getStock().getQuantity()) {
+            redirect.addFlashAttribute("error", "The quantity requested exceeds the quantity in stock! Available: " + book.getStock().getQuantity());
+            quantity = book.getStock().getQuantity();
+        }
+        itemUpdate.setQuantity(quantity);
+        lineItemService.saveAndFlush(itemUpdate);
+        cartService.saveAndFlush(cart);
+
+        return "cart";
+    }
+    @GetMapping("remove-cart/{lineItemId}")
+    public String removeCart(HttpSession session, @PathVariable("lineItemId") String lineItemId,RedirectAttributes redirect)
+    {
+        Cart cart = (Cart) session.getAttribute("cart");
+        if(cart==null)
+        {
+            redirect.addFlashAttribute("error","Cart not found");
+            return "redirect:/cart";
+        }
+        for(LineItem lineItem: cart.getLineItemList())
+        {
+            if(lineItem.getLineItemId().equals(lineItemId))
+            {
+                cart.removeLineItem(lineItem);
+                cartService.saveAndFlush(cart);
+                return "cart";
+            }
+        }
+        return "cart";
+    }
 }

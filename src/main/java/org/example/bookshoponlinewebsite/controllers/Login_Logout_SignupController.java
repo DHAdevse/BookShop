@@ -4,13 +4,11 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
-import org.example.bookshoponlinewebsite.models.Cart;
-import org.example.bookshoponlinewebsite.models.Discount;
-import org.example.bookshoponlinewebsite.models.Favorite;
-import org.example.bookshoponlinewebsite.models.User;
+import org.example.bookshoponlinewebsite.models.*;
 import org.example.bookshoponlinewebsite.models.dto.UserDTO;
 import org.example.bookshoponlinewebsite.services.CartService;
 import org.example.bookshoponlinewebsite.services.FavoriteService;
+import org.example.bookshoponlinewebsite.services.RoleService;
 import org.example.bookshoponlinewebsite.services.UserService;
 import org.example.bookshoponlinewebsite.utils.GenerateID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +31,8 @@ public class Login_Logout_SignupController {
     private FavoriteService favoriteService;
     @Autowired
     private CartService cartService;
+    @Autowired
+    private RoleService roleService;
     @Autowired
     private GenerateID generateID;
     @GetMapping("/register")
@@ -71,7 +71,8 @@ public class Login_Logout_SignupController {
         user.setFirstName(userDto.getFirstName());
         user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
-
+        Role role = roleService.findRoleByName("USER");
+        user.addRole(role);
         Favorite favorite = new Favorite();
         favorite.setUserId(user.getUserId());
         favoriteService.saveAndFlush(favorite);

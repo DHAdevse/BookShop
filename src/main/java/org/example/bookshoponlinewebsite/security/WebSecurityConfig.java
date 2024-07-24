@@ -31,10 +31,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
         httpSecurity
-                .authenticationProvider(authenticationProvider(null, null))  // Spring sẽ tự động inject các dependencies
+//                .authenticationProvider(authenticationProvider(null, null))  // Spring sẽ tự động inject các dependencies
                 .authorizeHttpRequests(config -> config
-                        .requestMatchers("/login","cart/**","/index","book/**","detail/**","/css/**", "/img/**", "/js/**", "/lib/**", "/loginpage/**", "/mail/**", "/scss/**", "/registerpage/**", "/bootstrap-shop-template.jpg").permitAll()
-                        .requestMatchers("admin/**").hasRole("ADMIN")
+                        .requestMatchers("admin/**","/login","cart/**","/index","book/**","detail/**","/css/**", "/img/**", "/js/**", "/lib/**", "/loginpage/**", "/mail/**", "/scss/**", "/registerpage/**", "/bootstrap-shop-template.jpg").permitAll()
+//                        .requestMatchers("admin/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .formLogin(loginPage -> loginPage

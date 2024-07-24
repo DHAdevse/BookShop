@@ -78,13 +78,13 @@
             </form>
         </div>
         <div class="col-lg-3 col-6 text-right">
-            <a href="" class="btn border">
+            <a href="wishlist" class="btn border">
                 <i class="fas fa-heart text-primary"></i>
-                <span class="badge">0</span>
+                <span class="badge" th:text="${session.favorite != null ? session.favorite.getBookList().size() : '0'}">0</span>
             </a>
             <a href="cart" class="btn border">
                 <i class="fas fa-shopping-cart text-primary"></i>
-                <span class="badge">0</span>
+                <span class="badge" th:text="${session.cart != null ? session.cart.getLineItemList().size() : '0'}">0</span>
             </a>
         </div>
     </div>
@@ -109,14 +109,8 @@
                     <div class="navbar-nav mr-auto py-0">
                         <a href="index" class="nav-item nav-link">Home</a>
                         <a href="shop" class="nav-item nav-link">Shop</a>
-                        <a href="detail" class="nav-item nav-link active">Shop Detail</a>
-                        <div class="nav-item dropdown">
-                            <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
-                            <div class="dropdown-menu rounded-0 m-0">
-                                <a href="cart" class="dropdown-item">Shopping Cart</a>
-                                <a href="checkout" class="dropdown-item">Checkout</a>
-                            </div>
-                        </div>
+                        <a href="cart" class="nav-item nav-link">Shopping Cart</a>
+                        <a href="checkout" class="nav-item nav-link">Checkout</a>
                         <a href="contact" class="nav-item nav-link">Contact</a>
                     </div>
                     <div class="navbar-nav ml-auto py-0">
@@ -186,19 +180,27 @@
             <p class="mb-4" th:text="${book.getDescription()}">Book Description</p>
             <div class="d-flex mb-3">
                 <p class="text-dark font-weight-medium mb-0 mr-3">Authors:</p>
-<!--                <p th:text="${book.getAuthor()}">Author Name</p>-->
+                <p>
+        <span th:if="${book.getAuthor() != null}">
+            <span th:each="author, iterStat : ${book.getAuthor()}"
+                  th:text="${author.getAuthorName() + (iterStat.last ? '' : ', ')}">
+            </span>
+        </span>
+                    <span th:unless="${book.getAuthor() != null}">N/A</span>
+                </p>
             </div>
             <div class="d-flex mb-3">
                 <p class="text-dark font-weight-medium mb-0 mr-3">Category:</p>
-                <p th:text="${book.getCategory()}">Category Name</p>
+                <p th:text="${book.getCategory()?.getCategoryName() ?: 'N/A'}">Category Name</p>
             </div>
             <div class="d-flex mb-3">
                 <p class="text-dark font-weight-medium mb-0 mr-3">Publisher:</p>
-                <p th:text="${book.getPublisher()}">Publisher Name</p>
+                <p th:text="${book.getPublisher()?.getPublisherName() ?: 'N/A'}">Publisher Name</p>
             </div>
             <div class="d-flex mb-3">
                 <p class="text-dark font-weight-medium mb-0 mr-3">Status:</p>
-                <p th:text="${book.getCategory()}">Category Name</p>
+                <p th:if="${book.getStock().getQuantity() > 0}" class="text-success">Available</p>
+                <p th:unless="${book.getStock().getQuantity() > 0}" class="text-danger">Sold Out</p>
             </div>
             <div class="d-flex align-items-center mb-4 pt-2">
                 <div class="input-group quantity mr-3" style="width: 130px;">

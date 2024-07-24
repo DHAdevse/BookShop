@@ -1,5 +1,6 @@
 package org.example.bookshoponlinewebsite.controllers;
 
+import org.example.bookshoponlinewebsite.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -13,7 +14,8 @@ import java.security.Principal;
 public class UserController {
     @Autowired
     private UserDetailsService userDetailsService;
-
+    @Autowired
+    private UserService userService;
 
     @GetMapping({"/index", "/"})
     public String index(Model model, Principal principal) {
@@ -23,5 +25,6 @@ public class UserController {
         }
         return "index";
     }
+
 
 }

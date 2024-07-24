@@ -15,13 +15,14 @@ public class BookShopOnlineWebsiteApplication {
 		SpringApplication.run(BookShopOnlineWebsiteApplication.class, args);
 	}
 	@Bean
-	public CommandLineRunner commandLineRunner(ResourceLoader resourceLoader, GenerateID generateID,AuthorService authorService, UserService userService,
-											   StockService stockService,CategoryService categoryService, PublisherService publisherService, BookService bookService)
+	public CommandLineRunner commandLineRunner(ResourceLoader resourceLoader, GenerateID generateID, AuthorService authorService, UserService userService,
+											   StockService stockService, CategoryService categoryService, PublisherService publisherService, BookService bookService, RoleService roleService)
 	{
 		return runner->{
-//			// ========================== USER ============================= //
-//			// User 1
-//
+//			BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+////			// ========================== USER ============================= //
+////			// User 1
+////
 //			User user1 = new User();
 //			user1.setUserId("USER00001");
 //			user1.setFirstName("John");
@@ -29,10 +30,17 @@ public class BookShopOnlineWebsiteApplication {
 //			user1.setEmail("john.doe@example.com");
 //			user1.setAddress("123 Main St, Anytown USA");
 //			user1.setDob(new Date(88,3,30));
-//			user1.setUsername("johndoe");
-//			user1.setPassword("password123");
+//			user1.setUsername("admin");
+//			user1.setPassword(encoder.encode("123456"));
 //			user1.setGender("Male");
 //			user1.setPhoneNumber("555-1234");
+//			Role adminRole = roleService.findRoleByName("ADMIN");
+//			if (adminRole == null) {
+//				adminRole = new Role();
+//				adminRole.setRoleName("ADMIN");
+//				adminRole = roleService.addRole(adminRole);
+//			}
+//			user1.addRole(adminRole);  // Sử dụng getRole() thay vì setRole()
 //			userService.addUser(user1);
 //
 //			// User 2
@@ -88,7 +96,7 @@ public class BookShopOnlineWebsiteApplication {
 //			user5.setPhoneNumber("555-7890");
 //			userService.addUser(user5);
 //
-			// ========================== AUTHOR ============================= //
+////			 ========================== AUTHOR ============================= //
 //			Author author1 = new Author();
 //			author1.setAuthorName("John Doe");
 //			author1.setAuthorId("AUTH00002");

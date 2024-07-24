@@ -20,6 +20,6 @@ public class Role {
     private long roleId;
     @Column(name="role_name")
     private String roleName;
-    @OneToMany
+    @ManyToMany(mappedBy = "roleList",fetch = FetchType.EAGER)
     private List<User> userList;
 }

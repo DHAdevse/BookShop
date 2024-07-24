@@ -5,7 +5,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.boot.autoconfigure.web.WebProperties;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import java.util.Date;
@@ -20,6 +19,7 @@ public class Author {
     @Id
     @Column(name="author_id")
     private String authorId;
+    @Getter
     @Column(name="author_name")
     private String authorName;
     @Temporal(TemporalType.DATE)

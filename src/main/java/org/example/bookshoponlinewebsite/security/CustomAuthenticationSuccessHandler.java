@@ -6,10 +6,12 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import org.example.bookshoponlinewebsite.models.Cart;
 import org.example.bookshoponlinewebsite.models.Favorite;
+import org.example.bookshoponlinewebsite.models.Invoice;
 import org.example.bookshoponlinewebsite.models.User;
 import org.example.bookshoponlinewebsite.repositories.UserRepository;
 import org.example.bookshoponlinewebsite.services.CartService;
 import org.example.bookshoponlinewebsite.services.FavoriteService;
+import org.example.bookshoponlinewebsite.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
@@ -24,6 +26,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
     private CartService cartService;
     @Autowired
     private FavoriteService favoriteService;
+    @Autowired
+    private InvoiceService invoiceService;
     @Override
     public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
                                         Authentication authentication) throws IOException, ServletException {
@@ -36,6 +40,8 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             session.setAttribute("cart",cart);
             Favorite favorite = favoriteService.getFavoriteByUserId(user.getUserId());
             session.setAttribute("favorite", favorite);
+            Invoice invoice = new Invoice();
+            session.setAttribute("currentInvoice",invoice);
         }
 
 

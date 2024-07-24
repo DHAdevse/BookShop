@@ -1,11 +1,12 @@
 package org.example.bookshoponlinewebsite.models;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter @Setter
@@ -14,9 +15,8 @@ import java.util.Set;
 public class Invoice {
     @Id
     @Column(name="invoice_id")
-    private String invoiceID;
+    private String invoiceId;
     @Column(name="order_date")
-    @Temporal(TemporalType.DATE)
     private Date orderDate;
     @Temporal(TemporalType.DATE)
     @Column(name="delivery_date")
@@ -26,10 +26,12 @@ public class Invoice {
     @Column(name="total_pay")
     private double totalPay;
     @Column(name="Status")
-    private String status;
+    private boolean status;
+    @Column(name="ship_fee")
+    private double shipFee;
     @Column(name="payment_method")
     private String paymentMethod;
     @OneToOne()
-    private Discount discountList;
+    private Discount discount;
 
 }

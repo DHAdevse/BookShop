@@ -1,13 +1,7 @@
 package org.example.bookshoponlinewebsite.controllers;
 
-import org.example.bookshoponlinewebsite.models.Author;
-import org.example.bookshoponlinewebsite.models.Book;
-import org.example.bookshoponlinewebsite.models.Category;
-import org.example.bookshoponlinewebsite.models.Publisher;
-import org.example.bookshoponlinewebsite.services.AuthorService;
-import org.example.bookshoponlinewebsite.services.BookService;
-import org.example.bookshoponlinewebsite.services.CategoryService;
-import org.example.bookshoponlinewebsite.services.PublisherService;
+import org.example.bookshoponlinewebsite.models.*;
+import org.example.bookshoponlinewebsite.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -24,6 +18,8 @@ public class GlobalController {
     private PublisherService publisherService;
     @Autowired
     private BookService bookService;
+    @Autowired
+    private UserService userService;
     @ModelAttribute("categories")
     public List<Category> getCategories() {
 
@@ -43,5 +39,9 @@ public class GlobalController {
     public List<Book> getBooks()
     {
         return bookService.getAllBook();
+    }
+    @ModelAttribute("users")
+    public List<User> getUsers(){
+        return userService.getAllUser();
     }
 }

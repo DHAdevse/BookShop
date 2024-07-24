@@ -1,10 +1,14 @@
 package org.example.bookshoponlinewebsite.models.dto;
 
-import jakarta.validation.constraints.*;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 
 @Getter @Setter
@@ -28,6 +32,7 @@ public class UserDTO {
    @Size(min = 6, message = "Password must be at least 6 characters long")
    private String password;
    private String confirmPassword;
+   private List<Long> roleIdsList;
    public UserDTO(String username, String password, String firstName, String lastName, String email) {
       this.username = username;
       this.password = password;

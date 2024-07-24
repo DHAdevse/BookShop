@@ -77,13 +77,13 @@
                 </form>
             </div>
             <div class="col-lg-3 col-6 text-right">
-                <a href="" class="btn border">
+                <a href="wishlist" class="btn border">
                     <i class="fas fa-heart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge" th:text="${session.favorite != null ? session.favorite.getBookList().size() : '0'}">0</span>
                 </a>
                 <a href="cart" class="btn border">
                     <i class="fas fa-shopping-cart text-primary"></i>
-                    <span class="badge">0</span>
+                    <span class="badge" th:text="${session.cart != null ? session.cart.getLineItemList().size() : '0'}">0</span>
                 </a>
             </div>
         </div>
@@ -108,14 +108,8 @@
                         <div class="navbar-nav mr-auto py-0">
                             <a href="index" class="nav-item nav-link">Home</a>
                             <a href="shop" class="nav-item nav-link">Shop</a>
-                            <a href="detail" class="nav-item nav-link">Shop Detail</a>
-                            <div class="nav-item dropdown">
-                                <a href="#" class="nav-link dropdown-toggle active" data-toggle="dropdown">Pages</a>
-                                <div class="dropdown-menu rounded-0 m-0">
-                                    <a href="cart" class="dropdown-item">Shopping Cart</a>
-                                    <a href="checkout" class="dropdown-item">Checkout</a>
-                                </div>
-                            </div>
+                            <a href="cart" class="nav-item nav-link">Shopping Cart</a>
+                            <a href="checkout" class="nav-item nav-link active">Checkout</a>
                             <a href="contact" class="nav-item nav-link">Contact</a>
                         </div>
                         <div class="navbar-nav ml-auto py-0">
@@ -152,7 +146,7 @@
 
     <!-- Checkout Start -->
     <div class="container-fluid pt-5">
-        <div class="row px-xl-5">
+        <div class="row px-xl-5" th:if="${session.authUser != null and session.cart != null and not #lists.isEmpty(session.cart.getLineItemList())}">
             <div class="col-lg-8">
                 <div class="mb-4">
                     <h4 class="font-weight-semi-bold mb-4">Billing Address</h4>
@@ -188,6 +182,9 @@
                                 <option>Afghanistan</option>
                                 <option>Albania</option>
                                 <option>Algeria</option>
+                                <option>Belgium</option>
+                                <option>England</option>
+                                <option>VietNam</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -250,6 +247,9 @@
                                 <option>Afghanistan</option>
                                 <option>Albania</option>
                                 <option>Algeria</option>
+                                <option>Belgium</option>
+                                <option>England</option>
+                                <option>VietNam</option>
                             </select>
                         </div>
                         <div class="col-md-6 form-group">
@@ -272,24 +272,32 @@
                     <div class="card-header bg-secondary border-0">
                         <h4 class="font-weight-semi-bold m-0">Order Total</h4>
                     </div>
+
                     <div class="card-body">
-                        <h5 class="font-weight-medium mb-3">Products</h5>
-                        <div class="d-flex justify-content-between">
-                            <p>Colorful Stylish Shirt 1</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Colorful Stylish Shirt 2</p>
-                            <p>$150</p>
-                        </div>
-                        <div class="d-flex justify-content-between">
-                            <p>Colorful Stylish Shirt 3</p>
-                            <p>$150</p>
-                        </div>
+                        <h5 class="font-weight-medium mb-3" th:if="${session.authUser != null}">Products</h5>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th style="width: 60%;">Book Name</th>
+                                <th style="width: 20%;">Quantity</th>
+                                <th style="width: 20%;">Price</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="item : ${session.cart.getLineItemList()}">
+                                <td style="width: 50%; vertical-align: middle;" th:text="${item.getBook().getBookName()}">Book Name</td>
+                                <td style="width: 25%; vertical-align: middle;" th:text="${item.getQuantity()}">1</td>
+                                <td style="width: 25%; vertical-align: middle;" th:text="${'$' + #numbers.formatDecimal(item.getBook().getSellPrice()*item.getQuantity(), 1, 'COMMA', 2, 'POINT')}">$150</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        </tr>
                         <hr class="mt-0">
                         <div class="d-flex justify-content-between mb-3 pt-1">
                             <h6 class="font-weight-medium">Subtotal</h6>
-                            <h6 class="font-weight-medium">$150</h6>
+                            <!-- Sử dụng th:with để tính toán trước -->
+                            <h6 class="font-weight-medium" th:with="total=${session.cart != null ? session.cart.calculateTotal() : 0}"
+                                th:text="${'$' + #numbers.formatDecimal(total, 1, 2, 'POINT')}">$150</h6>
                         </div>
                         <div class="d-flex justify-content-between">
                             <h6 class="font-weight-medium">Shipping</h6>
@@ -298,8 +306,10 @@
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
                         <div class="d-flex justify-content-between mt-2">
-                            <h5 class="font-weight-bold">Total</h5>
-                            <h5 class="font-weight-bold">$160</h5>
+                            <h6 class="font-weight-medium">Total</h6>
+                            <!-- Sử dụng th:with để tính toán trước -->
+                            <h6 class="font-weight-medium" th:with="total=${session.cart != null ? session.cart.calculateTotal() : 0}"
+                                th:text="${'$' + #numbers.formatDecimal(total+10, 1, 2, 'POINT')}">$150</h6>
                         </div>
                     </div>
                 </div>
@@ -328,10 +338,18 @@
                         </div>
                     </div>
                     <div class="card-footer border-secondary bg-transparent">
-                        <button class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                        <form th:action="@{/payment}" method="post">
+                            <button type="submit" class="btn btn-lg btn-block btn-primary font-weight-bold my-3 py-3">Place Order</button>
+                        </form>
                     </div>
                 </div>
             </div>
+        </div>
+        <div th:if="${session.authUser == null}" class="text-center">
+            <p>Please <a href="/login">log in</a> to view your cart.</p>
+        </div>
+        <div th:if="${session.authUser != null and (session.cart == null or #lists.isEmpty(session.cart.getLineItemList()))}" class="text-center">
+            <p>Checkout is empty.</p>
         </div>
     </div>
     <!-- Checkout End -->
@@ -356,7 +374,6 @@
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
                             <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                             <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                             <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
                             <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
@@ -367,7 +384,6 @@
                         <div class="d-flex flex-column justify-content-start">
                             <a class="text-dark mb-2" href="index.html"><i class="fa fa-angle-right mr-2"></i>Home</a>
                             <a class="text-dark mb-2" href="shop.html"><i class="fa fa-angle-right mr-2"></i>Our Shop</a>
-                            <a class="text-dark mb-2" href="detail.html"><i class="fa fa-angle-right mr-2"></i>Shop Detail</a>
                             <a class="text-dark mb-2" href="cart.html"><i class="fa fa-angle-right mr-2"></i>Shopping Cart</a>
                             <a class="text-dark mb-2" href="checkout.html"><i class="fa fa-angle-right mr-2"></i>Checkout</a>
                             <a class="text-dark" href="contact.html"><i class="fa fa-angle-right mr-2"></i>Contact Us</a>
@@ -394,10 +410,8 @@
         <div class="row border-top border-light mx-xl-5 py-4">
             <div class="col-md-6 px-xl-0">
                 <p class="mb-md-0 text-center text-md-left text-dark">
-                    &copy; <a class="text-dark font-weight-semi-bold" href="#">Your Site Name</a>. All Rights Reserved. Designed
-                    by
-                    <a class="text-dark font-weight-semi-bold" href="https://htmlcodex.com">HTML Codex</a><br>
-                    Distributed By <a href="https://themewagon.com" target="_blank">ThemeWagon</a>
+                    &copy; <a class="text-dark font-weight-semi-bold" href="#">DHA Shop</a>.
+                    Distributed By <a href="https://www.facebook.com/hieuanh04" target="_blank">DHA</a>
                 </p>
             </div>
             <div class="col-md-6 px-xl-0 text-center text-md-right">
