@@ -34,4 +34,8 @@ public class Invoice {
     @OneToOne()
     private Discount discount;
 
+    public boolean getStatus()
+    {
+        return status;
+    }
 }

@@ -20,6 +20,10 @@ public class GlobalController {
     private BookService bookService;
     @Autowired
     private UserService userService;
+    @Autowired
+    private DiscountService discountService;
+    @Autowired
+    private InvoiceService invoiceService;
     @ModelAttribute("categories")
     public List<Category> getCategories() {
 
@@ -35,6 +39,10 @@ public class GlobalController {
     {
         return publisherService.getListPublisher();
     }
+    @ModelAttribute("discounts")
+    public List<Discount> getDiscounts(){return discountService.getAllDiscount();}
+    @ModelAttribute("invoices")
+    public List<Invoice> getInvoices(){return invoiceService.getAllInvoice();}
     @ModelAttribute("books")
     public List<Book> getBooks()
     {

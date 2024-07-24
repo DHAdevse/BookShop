@@ -6,6 +6,8 @@ import org.example.bookshoponlinewebsite.services.InvoiceService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class InvoiceServiceImpl implements InvoiceService {
     @Autowired
@@ -26,12 +28,8 @@ public class InvoiceServiceImpl implements InvoiceService {
     }
 
     @Override
-    public double calTotalAmount() {
-        return invoiceRepository.calTotalAmount();
+    public List<Invoice> getAllInvoice() {
+        return invoiceRepository.findAll();
     }
 
-    @Override
-    public double calTotalPay() {
-        return invoiceRepository.calTotalPay();
-    }
 }

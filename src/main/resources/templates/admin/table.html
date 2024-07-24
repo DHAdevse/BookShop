@@ -381,13 +381,16 @@
                     </div>
                 </div>
 
-                <!-- Basic Tables start -->
+                <!-- Category and Publisher Tables start -->
                 <section class="section">
                     <div class="row" id="basic-table">
                         <div class="col-12 col-md-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Category Table</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title mb-0">Category Table</h4>
+                                        <a th:href="@{/admin/addNewUserPage}" class="btn btn-primary btn-sm">Add Category</a>
+                                    </div>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
@@ -398,12 +401,21 @@
                                                     <tr>
                                                         <th>CategoryId</th>
                                                         <th>CategroyName</th>
+                                                        <th>Edit</th>
+                                                        <th>Remove</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="text-bold-500">Michael Right</td>
-                                                        <td>$15/hr</td>
+                                                    <tr  th:each="category: ${categories}">
+                                                        <td class="text-bold-500" th:text="${category.getCategoryId()}"></td>
+                                                        <td th:text="${category.getCategoryName()}">$15/hr</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-danger btn-sm"
+                                                               onclick="return confirm('Are you sure you want to delete this publisher?')">Remove</a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -415,7 +427,10 @@
                         <div class="col-12 col-md-6">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Publisher Table</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title mb-0">Publisher Table</h4>
+                                        <a th:href="@{/admin/addNewUserPage}" class="btn btn-primary btn-sm">Add Publisher</a>
+                                    </div>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
@@ -426,12 +441,21 @@
                                                     <tr>
                                                         <th>PublisherId</th>
                                                         <th>PublisherName</th>
+                                                        <th>Edit</th>
+                                                        <th>Remove</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="text-bold-500">Michael Right</td>
-                                                        <td>$15/hr</td>
+                                                    <tr th:each="publisher : ${publishers}">
+                                                        <td class="text-bold-500" th:text="${publisher.getPublisherId()}">Michael Right</td>
+                                                        <td th:text="${publisher.getPublisherName()}">$15/hr</td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                        </td>
+                                                        <td>
+                                                            <a href="#" class="btn btn-danger btn-sm"
+                                                               onclick="return confirm('Are you sure you want to delete this publisher?')">Remove</a>
+                                                        </td>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -442,16 +466,105 @@
                         </div>
                     </div>
                 </section>
-                <!-- Basic Tables end -->
+                <!-- Category and Publisher Tables end -->
 
-                <!--  Inverse table start -->
+                <!-- Author and Discount Tables start -->
+                <section class="section">
+                    <div class="row" id="basics-table">
+                        <div class="col-12 col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title mb-0">Author Table</h4>
+                                        <a th:href="@{/admin/addNewUserPage}" class="btn btn-primary btn-sm">Add Author</a>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <!-- Table with outer spacing -->
+                                        <div class="table-responsive">
+                                            <table class="table table-lg">
+                                                <thead>
+                                                <tr>
+                                                    <th>AuthorId</th>
+                                                    <th>AuthorName</th>
+                                                    <th>Date of birth</th>
+                                                    <th>Edit</th>
+                                                    <th>Remove</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr  th:each="author: ${authors}">
+                                                    <td class="text-bold-500" th:text="${author.getAuthorId()}"></td>
+                                                    <td th:text="${author.getAuthorName()}">$15/hr</td>
+                                                    <td th:text="${author.getDob()}">$15/hr</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-danger btn-sm"
+                                                           onclick="return confirm('Are you sure you want to delete this publisher?')">Remove</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 col-md-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title mb-0">Discount Table</h4>
+                                        <a th:href="@{/admin/addNewUserPage}" class="btn btn-primary btn-sm">Add Discount</a>
+                                    </div>
+                                </div>
+                                <div class="card-content">
+                                    <div class="card-body">
+                                        <!-- Table with no outer spacing -->
+                                        <div class="table-responsive">
+                                            <table class="table table-lg">
+                                                <thead>
+                                                <tr>
+                                                    <th>DiscountCode</th>
+                                                    <th>DiscountAmount</th>
+                                                    <th>Edit</th>
+                                                    <th>Remove</th>
+                                                </tr>
+                                                </thead>
+                                                <tbody>
+                                                <tr th:each="discount : ${discounts}">
+                                                    <td class="text-bold-500" th:text="${discount.getDiscountCode()}">Michael Right</td>
+                                                    <td th:text="${discount.getDiscountAmount()}">$15/hr</td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-primary btn-sm">Edit</a>
+                                                    </td>
+                                                    <td>
+                                                        <a href="#" class="btn btn-danger btn-sm"
+                                                           onclick="return confirm('Are you sure you want to delete this publisher?')">Remove</a>
+                                                    </td>
+                                                </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+                <!-- Author and Discount Tables end -->
+
+                <!--  User table start -->
                 <section class="section">
                     <div class="row" id="table-inverse">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
                                     <div class="d-flex justify-content-between align-items-center">
-                                        <h4 class="card-title mb-0">User table</h4>
+                                        <h4 class="card-title mb-0">User Table</h4>
                                         <a th:href="@{/admin/addNewUserPage}" class="btn btn-primary btn-sm">Add New User</a>
                                     </div>
                                 </div>
@@ -466,7 +579,7 @@
                                                         <th>FirstName</th>
                                                         <th>LastName</th>
                                                         <th>Email</th>
-                                                        <th>Address</th>
+                                                        <th >Address</th>
                                                         <th>Username</th>
                                                         <th>Password</th>
                                                         <th>Gender</th>
@@ -481,7 +594,7 @@
                                                     <td th:text="${user.getFirstName()}"></td>
                                                     <td th:text="${user.getLastName()}"></td>
                                                     <td th:text="${user.getEmail()}"></td>
-                                                    <td th:text="${user.getAddress()}"></td>
+                                                    <td th:text="${user.getAddress()}" ></td>
                                                     <td th:text="${user.getUsername()}"></td>
                                                     <td th:text="${user.getPassword()}"></td>
                                                     <td th:text="${user.getGender()}"></td>
@@ -503,319 +616,100 @@
                         </div>
                     </div>
                 </section>
-                <!-- Inverse table end -->
+                <!-- User table end -->
 
-                <!-- Bordered table start -->
+                <!-- Invoice table start -->
                 <section class="section">
                     <div class="row" id="table-bordered">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Bordered table</h4>
+                                    <div class="d-flex justify-content-between align-items-center">
+                                        <h4 class="card-title mb-0">Invoice Table</h4>
+<!--                                        <a th:href="@{/admin/addNewUserPage}" class="btn btn-primary btn-sm">Add New Author</a>-->
+                                    </div>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <p class="card-text">Add <code>.table-bordered</code> for borders on all sides
-                                            of the table
-                                            and
-                                            cells. For
-                                            Inverse Dark Table, add <code>.table-dark</code> along with
-                                            <code>.table-bordered</code>.
-                                        </p>
-                                    </div>
-                                    <!-- table bordered -->
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>NAME</th>
-                                                    <th>RATE</th>
-                                                    <th>SKILL</th>
-                                                    <th>TYPE</th>
-                                                    <th>LOCATION</th>
-                                                    <th>ACTION</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-bold-500">Michael Right</td>
-                                                    <td>$15/hr</td>
-                                                    <td class="text-bold-500">UI/UX</td>
-                                                    <td>Remote</td>
-                                                    <td>Austin,Taxes</td>
-                                                    <td><a href="#"><i
-                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                data-feather="mail"></i></a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                        <!-- table bordered -->
+                                        <div class="table-responsive">
+                                            <table class="table table-light">
+                                                <thead>
+                                                    <tr>
+                                                        <th>InvoiceId</th>
+                                                        <th>PaymentMethod</th>
+                                                        <th>Status</th>
+                                                        <th>ShipFee</th>
+                                                        <th>OrderDate</th>
+                                                        <th>DeliveryDate</th>
+                                                        <th>Discount </th>
+                                                        <th>TotalAmount</th>
+                                                        <th>TotalPay</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr th:each="invoice: ${invoices}">
+                                                        <td class="text-bold-500" th:text="${invoice.getInvoiceId()}">Michael Right</td>
+                                                        <td th:text="${invoice.getPaymentMethod()}">$15/hr</td>
+                                                        <td th:text="${invoice.getStatus()}">$15/hr</td>
+                                                        <td th:text="${invoice.getShipFee()}">$15/hr</td>
+                                                        <td th:text="${invoice.getOrderDate()}">$15/hr</td>
+                                                        <td th:text="${invoice.getDeliveryDate()}"></td>
+                                                        <td th:text="${invoice.getDiscount()?.getDiscountAmount() ?: 0} + '%'">$0</td>                                                    <td th:text="${invoice.getTotalAmount()}">$15/hr</td>
+                                                        <td th:text="${invoice.getTotalPay()}"></td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </section>
-                <!-- Bordered table end -->
+                <!-- Invoice table end -->
 
-                <!-- Borderless table start -->
-                <section class="section">
-                    <div class="row" id="table-borderless">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Borderless Table</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <p class="card-text">Add <code>.table-borderless</code> for a table without
-                                            borders. It can
-                                            also
-                                            be used on
-                                            dark tables.</p>
-                                    </div>
-                                    <!-- table with no border -->
-                                    <div class="table-responsive">
-                                        <table class="table table-borderless mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>NAME</th>
-                                                    <th>RATE</th>
-                                                    <th>SKILL</th>
-                                                    <th>TYPE</th>
-                                                    <th>LOCATION</th>
-                                                    <th>ACTION</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-bold-500">Michael Right</td>
-                                                    <td>$15/hr</td>
-                                                    <td class="text-bold-500">UI/UX</td>
-                                                    <td>Remote</td>
-                                                    <td>Austin,Taxes</td>
-                                                    <td><a href="#"><i
-                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                data-feather="mail"></i></a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Borderless table end -->
-
-                <!-- Hoverable rows start -->
-                <section class="section">
-                    <div class="row" id="table-hover-row">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Hoverable rows</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <p>Add <code class="highlighter-rouge">.table-hover</code> to enable a hover
-                                            state on table
-                                            rows
-                                            within a
-                                            <code class="highlighter-rouge">&lt;tbody&gt;</code>.
-                                        </p>
-                                    </div>
-                                    <!-- table hover -->
-                                    <div class="table-responsive">
-                                        <table class="table table-hover mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>NAME</th>
-                                                    <th>RATE</th>
-                                                    <th>SKILL</th>
-                                                    <th>TYPE</th>
-                                                    <th>LOCATION</th>
-                                                    <th>ACTION</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <td class="text-bold-500">Mikkey Mice</td>
-                                                    <td>$15/hr</td>
-                                                    <td class="text-bold-500">Animation</td>
-                                                    <td>Remote</td>
-                                                    <td>Austin,Texas</td>
-                                                    <td><a href="#"><i
-                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                data-feather="mail"></i></a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Hoverable rows end -->
-
-                <!-- Contextual classes start -->
-                <section class="section">
-                    <div class="row" id="table-contexual">
-                        <div class="col-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Contextual classes</h4>
-                                </div>
-                                <div class="card-content">
-                                    <div class="card-body">
-                                        <p>Use contextual classes to color table rows or individual cells. Read full
-                                            documnetation
-                                            <a href="https://getbootstrap.com/docs/4.3/content/tables/#contextual-classes"
-                                                target="_blank">here.</a>
-                                        </p>
-                                    </div>
-                                    <!-- table contextual / colored -->
-                                    <div class="table-responsive">
-                                        <table class="table mb-0">
-                                            <thead>
-                                                <tr>
-                                                    <th>NAME</th>
-                                                    <th>RATE</th>
-                                                    <th>SKILL</th>
-                                                    <th>TYPE</th>
-                                                    <th>LOCATION</th>
-                                                    <th>ACTION</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr class="table-active">
-                                                    <td class="text-bold-500">Michael Right</td>
-                                                    <td>$15/hr</td>
-                                                    <td class="text-bold-500">UI/UX</td>
-                                                    <td>Remote</td>
-                                                    <td>Austin,Taxes</td>
-                                                    <td><a href="#"><i
-                                                                class="badge-circle badge-circle-light-secondary font-medium-1"
-                                                                data-feather="mail"></i></a></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </section>
-                <!-- Contextual classes end -->
-
-                <!-- Responsive tables start -->
+                <!-- Book tables start -->
                 <section class="section">
                     <div class="row" id="table-responsive">
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h4 class="card-title">Always responsive</h4>
+                                    <h4 class="card-title">Book Table</h4>
                                 </div>
                                 <div class="card-content">
                                     <div class="card-body">
-                                        <p>Responsive tables allow tables to be scrolled horizontally with ease. Make
-                                            any table
-                                            responsive across all
-                                            viewports by adding <code class="highlighter-rouge">.table-responsive</code>
-                                            class on
-                                            <code class="highlighter-rouge">.table</code>. Or, pick a maximum breakpoint
-                                            with which
-                                            to
-                                            have a responsive
-                                            table up to by adding <code
-                                                class="highlighter-rouge"> .table-responsive{-sm|-md|-lg|-xl}</code>.
-                                            Read full
-                                            documnetation <a
-                                                href="https://getbootstrap.com/docs/4.3/content/tables/#responsive-tables"
-                                                target="_blank">here.</a>
-                                        </p>
-
-                                        <div class="alert alert-primary">
-                                            <h4 class="alert-heading">Vertical clipping/truncation</h4>
-                                            <p>Responsive tables make use of <code
-                                                    class="highlighter-rouge">overflow-y: hidden</code>,
-                                                which clips off
-                                                any content that goes beyond the bottom or top edges of the table. In
-                                                particular,
-                                                this
-                                                can clip off
-                                                dropdown menus and other third-party widgets.</p>
-                                        </div>
                                     </div>
                                     <!-- table responsive -->
                                     <div class="table-responsive">
                                         <table class="table mb-0">
                                             <thead>
                                                 <tr>
-                                                    <th scope="col">#</th>
-                                                    <th scope="col">Heading 1</th>
-                                                    <th scope="col">Heading 2</th>
-                                                    <th scope="col">Heading 3</th>
-                                                    <th scope="col">Heading 4</th>
-                                                    <th scope="col">Heading 5</th>
-                                                    <th scope="col">Heading 6</th>
-                                                    <th scope="col">Heading 7</th>
-                                                    <th scope="col">Heading 8</th>
-                                                    <th scope="col">Heading 9</th>
-                                                    <th scope="col">Heading 10</th>
-                                                    <th scope="col">Heading 11</th>
-                                                    <th scope="col">Heading 12</th>
-                                                    <th scope="col">Heading 13</th>
+                                                    <th>BookImage</th>
+                                                    <th>BookId</th>
+                                                    <th scope="col">BookName</th>
+                                                    <th scope="col">Publisher</th>
+                                                    <th scope="col">Category</th>
+                                                    <th scope="col">Author</th>
+                                                    <th scope="col">PublishDate</th>
+                                                    <th scope="col">Description</th>
+                                                    <th scope="col">Amount</th>
+                                                    <th scope="col">SellPrice</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <tr>
-                                                    <td>Michael Right</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Michael Right</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Michael Right</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
-                                                    <td>Table cell</td>
+                                                <tr th:each="book : ${books}">
+                                                    <td><img th:src="${book.getImageBook() != null ? (book.getImageBook().startsWith('/') ? book.getImageBook() : '/img/book_Images/' + book.getImageBook()) : '/img/img.png'}" alt="" style="width: 50px;">
+                                                    </td>
+                                                    <td th:text="${book.getBookId()}"></td>
+                                                    <td th:text="${book.getBookName()}"></td>
+                                                    <td th:text="${book.getPublisher?.getPublisherName() ?: null}"></td>
+                                                    <td th:text="${book.getCategory?.getCategoryName() ?: null}"></td>
+                                                    <td th:text="${book.getAuthor?.getAuthorName() ?: null}"></td>
+                                                    <td th:text="${book.getPublisherDate() != null ? #temporals.format(book.getPublisherDate(), 'dd/MM/yyyy') : '01/01/9999'}"></td>                                                    <td th:text="${book.getBookImage()}"></td>
+                                                    <td th:text="${book.getDescription()}"></td>
+                                                    <td th:text="${book.getStock?.getQuantity() ?: 0}"></td>
+                                                    <td th:text="${book.getSellPrice()}"></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -825,6 +719,8 @@
                         </div>
                     </div>
                 </section>
+                <!-- Book tables end -->
+
             </div>
 
             <footer>
@@ -833,8 +729,8 @@
                         <p>2024 &copy; DHA</p>
                     </div>
                     <div class="float-end">
-                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
-                                href="http://ahmadsaugi.com">A. Saugi</a></p>
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a href="#">DHA</a>
+                        </p>
                     </div>
                 </div>
             </footer>
