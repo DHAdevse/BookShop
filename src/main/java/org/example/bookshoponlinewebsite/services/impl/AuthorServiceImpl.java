@@ -19,6 +19,12 @@ public class AuthorServiceImpl implements AuthorService {
 
         return authorRepository.save(author);
     }
+
+    @Override
+    public Author saveAndFlush(Author author) {
+        return authorRepository.saveAndFlush(author);
+    }
+
     @Override
     public Author getAuthorByName(String author_name) {
 

@@ -7,6 +7,7 @@ import java.util.List;
 public interface PublisherService {
     //CRUD
     Publisher addPublisher(Publisher publisher);
+    public Publisher saveandFlush(Publisher publisher);
     Publisher getPublisherById(String id);
     Publisher getPublisherByName(String name);
     Publisher updatePublisher(Publisher publisher);

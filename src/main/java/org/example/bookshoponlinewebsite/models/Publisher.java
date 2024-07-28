@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter @Setter
@@ -20,5 +21,5 @@ public class Publisher {
     @Column(name="publisher_name")
     private String publisherName;
     @OneToMany(fetch = FetchType.LAZY)
-    private List<Book> bookList;
+    private List<Book> bookList = new ArrayList<>();
 }

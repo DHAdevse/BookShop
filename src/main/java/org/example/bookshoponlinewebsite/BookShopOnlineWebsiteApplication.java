@@ -99,94 +99,108 @@ public class BookShopOnlineWebsiteApplication {
 ////			 ========================== AUTHOR ============================= //
 //			Author author1 = new Author();
 //			author1.setAuthorName("John Doe");
-//			author1.setAuthorId("AUTH00002");
+//			author1.setAuthorId("AUTH0001");
 //			author1.setDob(new Date(70, 5, 15)); // Ngày 15 tháng 6 năm 1990
 //			authorService.addAuthor(author1);
 //
 //			Author author2 = new Author();
 //			author2.setAuthorName("Nguyen Nhat Anh");
-//			author2.setAuthorId("AUTH00001");
+//			author2.setAuthorId("AUTH0002");
 //			author2.setDob(new Date(60, 6, 17)); // Ngày 15 tháng 6 năm 1990
 //			authorService.addAuthor(author2);
 //			Author author3 = new Author();
 //			author3.setAuthorName("Kim Dong");
-//			author3.setAuthorId("AUTH00003");
+//			author3.setAuthorId("AUTH0003");
 //			author3.setDob(new Date(90, 5, 15)); // Ngày 15 tháng 6 năm 1990
 //			authorService.addAuthor(author3);
-//
-////			// ========================== CATEGORY ============================= //
+////
+//////			// ========================== CATEGORY ============================= //
 //			Category category1 = new Category();
 //			category1.setCategoryName("Drama");
-//			category1.setCategoryId("CATE00001");
+//			category1.setCategoryId("CATE0001");
 //
 //			Category category2 = new Category();
 //			category2.setCategoryName("Novel");
-//			category2.setCategoryId("CATE00002");
+//			category2.setCategoryId("CATE0002");
 //
 //			Category category3 = new Category();
 //			category3.setCategoryName("Poetry");
-//			category3.setCategoryId("CATE00003");
+//			category3.setCategoryId("CATE0003");
 //
 //			Category category4 = new Category();
 //			category4.setCategoryName("Science");
-//			category4.setCategoryId("CATE00004");
+//			category4.setCategoryId("CATE0004");
 //
 //			Category category5 = new Category();
 //			category5.setCategoryName("Mystery");
-//			category5.setCategoryId("CATE00005");
+//			category5.setCategoryId("CATE0005");
 //
 //			categoryService.addCategory(category1);
 //			categoryService.addCategory(category2);
 //			categoryService.addCategory(category3);
 //			categoryService.addCategory(category4);
 //			categoryService.addCategory(category5);
-////
-////		// ========================== PUBLISHER ============================= //
+//////
+//////		// ========================== PUBLISHER ============================= //
 //			Publisher publisher1 = new Publisher();
 //			publisher1.setPublisherName("Random House");
-//			publisher1.setPublisherId("PUBL00001");
+//			publisher1.setPublisherId("PUBL0001");
 //
 //			Publisher publisher2 = new Publisher();
 //			publisher2.setPublisherName("Penguin Random House");
-//			publisher2.setPublisherId("PUBL00002");
+//			publisher2.setPublisherId("PUBL0002");
 //
 //			Publisher publisher3 = new Publisher();
 //			publisher3.setPublisherName("HarperCollins");
-//			publisher3.setPublisherId("PUBL00003");
+//			publisher3.setPublisherId("PUBL0003");
 //
 //			Publisher publisher4 = new Publisher();
 //			publisher4.setPublisherName("Scholastic");
-//			publisher4.setPublisherId("PUBL00004");
+//			publisher4.setPublisherId("PUBL0004");
 //
 //			Publisher publisher5 = new Publisher();
 //			publisher5.setPublisherName("Simon & Schuster");
-//			publisher5.setPublisherId("PUBL00005");
+//			publisher5.setPublisherId("PUBL0005");
 //			publisherService.addPublisher(publisher1);
 //			publisherService.addPublisher(publisher2);
 //			publisherService.addPublisher(publisher3);
 //			publisherService.addPublisher(publisher4);
 //			publisherService.addPublisher(publisher5);
-//
-//		// ========================== BOOK ============================= //
-//			// BOOK 1 : THE WOMEN : A NOVEL
+////
+////		// ========================== BOOK ============================= //
+////			// BOOK 1 : THE WOMEN : A NOVEL
 //			Book the_women = new Book();
 //
-//			the_women.setBookId("BOOK00010");
+//			the_women.setBookId("BOOK0001");
 //			the_women.setBookName("Hoàng Tử Bé");
 //			the_women.setPublishDate(new Date(174,12,26));
 //			the_women.setDescription("Cuốn sách đẹp như một bài thơ thanh sáng, một câu chuyện cổ tích về tình yêu thương, lòng nhân ái, ý nghĩa của sự tồn tại, về sự cảm thông giữa người với người");
 //			double importPrice = 11.0;
 //			the_women.setSellPrice(importPrice * 1.2);
 //			the_women.setImageBook("hoangtube.png");
-//			bookService.save(the_women);
 //
 //			List<Book> bookList1 = new ArrayList<>();
 //			bookList1.add(the_women);
-//			author1.setBookList(bookList1);
-//			the_women.setAuthor(new ArrayList<>(Arrays.asList(author2)));
-//			the_women.setCategory(category1);
-//			the_women.setPublisher(publisher1);
-////			 add book to stock
+//			Author author11 = new Author();
+//			author11.setAuthorName("Mario Amadeo");
+//			author11.setAuthorId("AUTH0004");
+//			author11.setBookList(bookList1);
+//			Category category11 = new Category();
+//			Publisher publisher11 = new Publisher();
+//			category11.setCategoryId("CATE0011");
+//			category11.setCategoryName("Biographies");
+//			publisher11.setPublisherId("PUBL0006");
+//			publisher11.setPublisherName("Akashic Books");
+//			categoryService.addCategory(category11);
+//			publisherService.addPublisher(publisher11);
+//			authorService.addAuthor(author11);
+//			the_women.addAuthor(author11);
+//			the_women.setCategory(category11);
+//			the_women.setPublisher(publisher11);
+//			the_women.addCategory(category11);
+//			the_women.addPublisher(publisher11);
+//			bookService.save(the_women);
+////		add book to stock
 //			Stock stock = new Stock();
 //			stock.setStockId("STOC0003");
 //			stock.setQuantity(100);

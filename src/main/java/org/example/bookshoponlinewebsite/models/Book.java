@@ -5,7 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -22,29 +24,40 @@ public class Book {
     private String bookName;
     @ManyToMany(fetch = FetchType.LAZY,cascade = CascadeType.ALL)
     @JoinTable(name="book_author",
-            joinColumns = @JoinColumn(referencedColumnName = "book_id"),
-            inverseJoinColumns = @JoinColumn(referencedColumnName = "author_id"))
-    private List<Author> author;
+            joinColumns = @JoinColumn(name = "book_id"),
+            inverseJoinColumns = @JoinColumn(name = "author_id"))
+    private List<Author> author = new ArrayList<>();
 
     @JoinColumn(name="publisher_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Publisher publisher;
     @Column(name="sell_price")
     private double sellPrice;
     @Column(name = "description")
     private String description;
     @Column(name="date_publish")
-    @Temporal(TemporalType.DATE)
+//    @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date publishDate;
     @JoinColumn(name="category_id")
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
     @OneToOne
     private Stock stock;
     @Column(name="image_book")
     private String imageBook;
-//    @Transient
-//    @Lob
 
-
+    public void addAuthor(Author authorBook)
+    {
+        this.author.add(authorBook);
+        authorBook.getBookList().add(this);
+    }
+    public void addCategory(Category cate){
+        this.category = cate;
+        cate.getBookList().add(this);
+    }
+    public void addPublisher(Publisher publ){
+        this.publisher = publ;
+        publ.getBookList().add(this);
+    }
 }

@@ -18,6 +18,11 @@ public class PublisherServiceImpl implements PublisherService {
     }
 
     @Override
+    public Publisher saveandFlush(Publisher publisher) {
+        return publisherRepository.saveAndFlush(publisher);
+    }
+
+    @Override
     public Publisher getPublisherById(String id) {
         return publisherRepository.getReferenceById(id);
     }

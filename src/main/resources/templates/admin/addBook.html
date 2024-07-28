@@ -367,7 +367,7 @@
             <div class="page-title">
                 <div class="row">
                     <div class="col-12 col-md-6 order-md-1 order-last">
-                        <h3>Add New User Form</h3>
+                        <h3>Add Book Form</h3>
                     </div>
                     <div class="col-12 col-md-6 order-md-2 order-first">
                         <nav aria-label="breadcrumb" class="breadcrumb-header float-start float-lg-end">
@@ -380,89 +380,88 @@
                 </div>
             </div>
         </div>
-        <!--  Inverse table start -->
-        <section class="section">
-            <div class="row" id="table-inverse">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">New User Information:</h4>
-                        </div>
-                        <div class="card-content">
-                            <div class="card-body">
-                                <form th:action="@{/admin/process-add-user}"  th:object="${user}" method="post">
-                                    <!-- Thêm đoạn này để hiển thị lỗi chung -->
-                                    <div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">
-                                        <p th:each="err : ${#fields.errors('global')}" th:text="${err}"></p>
-                                    </div>
-                                    <div class="form-group" >
-                                        <label for="firstName">First Name</label>
-                                        <input type="text" class="form-control" id="firstName" th:field="*{firstName}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="lastName">Last Name</label>
-                                        <input type="text" class="form-control" id="lastName" th:field="*{lastName}" required>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="email">Email</label>
-                                        <input type="email" class="form-control" id="email" th:field="*{email}" required>
-                                        <span th:if="${#fields.hasErrors('email')}" th:errors="*{email}" style="color:red"></span>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="username">Username</label>
-                                        <input type="text" class="form-control" id="username"  th:field="*{username}" required>
-                                        <span th:if="${#fields.hasErrors('username')}" th:errors="*{username}" style="color:red"></span>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="password">Password</label>
-                                        <input type="password" class="form-control" id="password" th:field="*{password}" required>
-                                        <span th:if="${#fields.hasErrors('password')}" th:errors="*{password}" style="color: red"></span>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="confirmPassword">Confirm Password</label>
-                                        <input type="password" class="form-control" id="confirmPassword" th:field="*{confirmPassword}" required>
-
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="gender">Gender</label>
-                                        <select class="form-control" id="gender" name="gender">
-                                            <option value="Male">Male</option>
-                                            <option value="Female">Female</option>
-                                            <option value="Other">Other</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="phoneNumber">Phone Number</label>
-                                        <input type="text" class="form-control" id="phoneNumber" name="phoneNumber">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Roles</label>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="2" id="role-2" name="roleIdsList">
-                                            <label class="form-check-label" for="role-2">
-                                                User
-                                            </label>
-                                        </div>
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="1" id="role-1" name="roleIdsList">
-                                            <label class="form-check-label" for="role-1">
-                                                Admin
-                                            </label>
-                                        </div>
-                                        <!-- Thêm các role khác nếu cần -->
-                                    </div>
-                                    <button type="submit" class="btn btn-primary">Add User</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <!--  Book form start -->
+        <form th:action="@{/admin/process-add-book}" th:object="${book}" method="post" enctype="multipart/form-data">
+            <!-- Global errors -->
+            <div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">
+                <p th:each="err : ${#fields.errors('global')}" th:text="${err}"></p>
             </div>
-        </section>
-        <!-- Inverse table end -->
+
+            <!-- Book Image -->
+            <div class="form-group">
+                <label for="bookImage">Book Image</label>
+                <input type="file" class="form-control" id="bookImage" name="imageFile" accept="image/*" required>
+            </div>
+
+            <!-- Book Name -->
+            <div class="form-group">
+                <label for="bookName">Book Name</label>
+                <input type="text" class="form-control" id="bookName" th:field="*{bookName}" required>
+                <span th:if="${#fields.hasErrors('bookName')}" th:errors="*{bookName}" class="text-danger"></span>
+            </div>
+
+            <!-- Publisher -->
+            <div class="form-group">
+                <label for="publisher">Publisher</label>
+                <select class="form-control" id="publisher" th:field="*{publisher}" required>
+                    <option value="">Select a publisher</option>
+                    <option th:each="publisher : ${publishers}" th:value="${publisher.getPublisherId()}" th:text="${publisher.getPublisherName()}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('publisher')}" th:errors="*{publisher}" class="text-danger"></span>
+            </div>
+
+            <!-- Category -->
+            <div class="form-group">
+                <label for="category">Category</label>
+                <select class="form-control" id="category" th:field="*{category}" required>
+                    <option value="">Select a category</option>
+                    <option th:each="cat : ${categories}" th:value="${cat.getCategoryId()}" th:text="${cat.getCategoryName()}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('category')}" th:errors="*{category}" class="text-danger"></span>
+            </div>
+
+            <!-- Author -->
+            <div class="form-group">
+                <label for="author">Author</label>
+                <select class="form-control" id="author" th:field="*{author}" required>
+                    <option value="">Select a author</option>
+                    <option th:each="author : ${authors}" th:value="${author.getAuthorId()}" th:text="${author.getAuthorName()}"></option>
+                </select>
+                <span th:if="${#fields.hasErrors('author')}" th:errors="*{author}" class="text-danger"></span>
+            </div>
+
+            <!-- Description -->
+            <div class="form-group">
+                <label for="description">Description</label>
+                <textarea class="form-control" id="description" th:field="*{description}" rows="3" required></textarea>
+                <span th:if="${#fields.hasErrors('description')}" th:errors="*{description}" class="text-danger"></span>
+            </div>
+
+            <!-- Publish Date -->
+            <div class="form-group">
+                <label for="publishDate">Publish Date</label>
+                <input type="date" class="form-control" id="publishDate" th:field="*{publishDate}" required>
+                <span th:if="${#fields.hasErrors('publishDate')}" th:errors="*{publishDate}" class="text-danger"></span>
+            </div>
+
+            <!-- Stock -->
+            <!-- Stock Quantity -->
+            <div class="form-group">
+                <label for="stockQuantity">Quantity</label>
+                <input type="number" class="form-control" id="stockQuantity" name="stockQuantity" min="0" required>
+                <span th:if="${#fields.hasErrors('stock.quantity')}" th:errors="*{stock.getQuantity()}" class="text-danger"></span>
+            </div>
+
+            <!-- Sell Price -->
+            <div class="form-group">
+                <label for="importPrice">Import Price</label>
+                <input type="number" class="form-control" id="importPrice" name="importPrice" min="0" required>
+                <span th:if="${#fields.hasErrors('stock.importPrice')}" th:errors="*{stock.getImportPrice()}" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-primary">Add Book</button>
+        </form>
+        <!-- Book form end -->
 
         <footer>
             <div class="footer clearfix mb-0 text-muted">

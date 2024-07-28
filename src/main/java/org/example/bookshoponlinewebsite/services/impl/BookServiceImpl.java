@@ -16,6 +16,12 @@ public class BookServiceImpl implements BookService {
     public Book save(Book book) {
         return bookRepository.save(book);
     }
+
+    @Override
+    public Book saveAndFlush(Book book) {
+        return bookRepository.saveAndFlush(book);
+    }
+
     @Override
     public Book getBookById(String id) {
         return bookRepository.getReferenceById(id);

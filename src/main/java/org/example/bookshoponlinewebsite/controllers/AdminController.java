@@ -31,7 +31,7 @@ public class AdminController {
     private RoleService roleService;
     @Autowired
     private GenerateID generateID;
-    @GetMapping("/dashboard")
+    @GetMapping({"/dashboard","/"})
     public String viewDashboard()
     {
         return "/admin/index";
@@ -44,8 +44,9 @@ public class AdminController {
     //USER CRUD
     //create user
     @GetMapping("/addNewUserPage")
-    public String viewAddUserPage()
+    public String viewAddUserPage(Model model)
     {
+        model.addAttribute("user", new UserDTO());
         return "/admin/addUser";
     }
     @PostMapping("/process-add-user")
@@ -129,7 +130,7 @@ public class AdminController {
     }
     //delete user
     @GetMapping("/removeUser/{id}")
-    public String removeUser(Model model, @PathVariable("id") String id)
+    public String removeUser( @PathVariable("id") String id)
     {
         userService.deleteUser(id);
         return "redirect:/admin/table";

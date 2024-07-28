@@ -4,10 +4,7 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import org.example.bookshoponlinewebsite.models.Cart;
-import org.example.bookshoponlinewebsite.models.Favorite;
-import org.example.bookshoponlinewebsite.models.Invoice;
-import org.example.bookshoponlinewebsite.models.User;
+import org.example.bookshoponlinewebsite.models.*;
 import org.example.bookshoponlinewebsite.repositories.UserRepository;
 import org.example.bookshoponlinewebsite.services.CartService;
 import org.example.bookshoponlinewebsite.services.FavoriteService;
@@ -18,6 +15,9 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Objects;
+
 @Component
 public class CustomAuthenticationSuccessHandler implements AuthenticationSuccessHandler {
     @Autowired
@@ -42,9 +42,18 @@ public class CustomAuthenticationSuccessHandler implements AuthenticationSuccess
             session.setAttribute("favorite", favorite);
             Invoice invoice = new Invoice();
             session.setAttribute("currentInvoice",invoice);
+            List<Role> roles = user.getRoleList();
+            for(Role role: roles)
+            {
+                if(Objects.equals(role.getRoleName(), "ADMIN"))
+                    response.sendRedirect("/admin/dashboard");
+            }
+//            response.sendRedirect("/");
+        }
+        else{
+            response.sendRedirect("/index");  // Chuyển hướng mặc định cho các role khác
         }
 
-
-        response.sendRedirect("/index");
+//        response.sendRedirect("/index");
     }
 }

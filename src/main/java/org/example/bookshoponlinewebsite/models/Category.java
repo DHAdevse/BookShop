@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @NoArgsConstructor
@@ -22,5 +23,5 @@ public class Category {
     @OneToMany(fetch = FetchType.LAZY, mappedBy ="category",cascade ={
             CascadeType.DETACH,CascadeType.MERGE,CascadeType.PERSIST, CascadeType.REFRESH
     } )
-    private List<Book> bookList;
+    private List<Book> bookList = new ArrayList<>();
 }

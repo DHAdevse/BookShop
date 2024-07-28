@@ -1,18 +1,21 @@
 package org.example.bookshoponlinewebsite.controllers;
 
-import org.example.bookshoponlinewebsite.enums.ErrorResponse;
 import org.example.bookshoponlinewebsite.models.Author;
 import org.example.bookshoponlinewebsite.services.AuthorService;
+import org.example.bookshoponlinewebsite.utils.GenerateID;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Date;
 
 @Controller
 public class AuthorController {
     @Autowired
     private AuthorService authorService;
+    @Autowired
+    private GenerateID generateID;
     @GetMapping("search/{name}")
     public String getAuthorByName(@PathVariable("name") String name)
     {
@@ -24,36 +27,31 @@ public class AuthorController {
             return "index";
         }
     }
-    @PostMapping("add")
-    public ResponseEntity<?> addAuthor(@RequestBody Author author)
+    @PostMapping("admin/addAuthor")
+    public String addAuthor( @ModelAttribute("authorCreate") Author author)
     {
-        try {
-            Author authordata = authorService.addAuthor(author);
-            return new ResponseEntity<Author>(authordata,HttpStatus.OK);
-        }catch(Exception e) {
-            return new ResponseEntity<>(ErrorResponse.INPUT_ERROR,HttpStatus.NOT_ACCEPTABLE);
-        }
+
+        Author authordata = new Author();
+        authordata.setAuthorId(generateID.generateAuthorId());
+        authordata.setAuthorName(author.getAuthorName());
+        authordata.setDob(author.getDob());
+        authorService.saveAndFlush(authordata);
+        return "redirect:/admin/table";
     }
-    @PutMapping("update/{id}")
-    public ResponseEntity<?> updateAuthor(@PathVariable("id") String id, @RequestBody Author author)
+    @PostMapping("/admin/updateAuthor")
+    public String updateAuthor(@RequestParam("authorId") String id,
+                               @RequestParam("newAuthorName") String newName,
+                               @RequestParam("dob") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) Date newDob) {
+        Author author = authorService.getAuthorById(id);
+        author.setAuthorName(newName);
+        author.setDob(newDob);
+        authorService.saveAndFlush(author);
+        return "redirect:/admin/table";
+    }
+    @GetMapping("admin/removeAuthor/{id}")
+    public String deleteAuthor(@PathVariable String id)
     {
-        try {
-            Author authordata = authorService.updateAuthor(author);
-            return new ResponseEntity<Author>(authordata,HttpStatus.OK);
-        }catch(Exception e) {
-            return new ResponseEntity<>(ErrorResponse.INPUT_ERROR,HttpStatus.NOT_ACCEPTABLE);
-        }
-    }
-    @DeleteMapping("delete/{id}")
-    public ResponseEntity<?> deleteAuthor(String id)
-    {
-        try{
-            Author author = authorService.getAuthorById(id);
-            authorService.removeAuthor(id);
-            return new ResponseEntity<>("DELETED",HttpStatus.OK);
-        }catch(Exception e)
-        {
-            return new ResponseEntity<>(ErrorResponse.AUTHOR_NOT_FOUND, HttpStatus.NOT_FOUND);
-        }
-    }
+        authorService.removeAuthor(id);
+        return "redirect:/admin/table";
+}
 }

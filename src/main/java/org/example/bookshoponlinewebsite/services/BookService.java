@@ -7,6 +7,7 @@ import java.util.List;
 public interface BookService {
     //CRUD BOOK
     Book save(Book book);
+    public Book saveAndFlush(Book book);
     Book getBookById(String id);
     Book getBookByName(String name);
     Book updateBook(Book book);

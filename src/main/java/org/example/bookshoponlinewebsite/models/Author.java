@@ -7,6 +7,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -25,10 +26,7 @@ public class Author {
     @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dob;
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @JoinTable(name="book_author",
-            joinColumns = @JoinColumn(name="author_id"),
-            inverseJoinColumns = @JoinColumn(name = "book_id"))
-    private List<Book> bookList;
+    @ManyToMany(mappedBy ="author",fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<Book> bookList = new ArrayList<>();
 
 }

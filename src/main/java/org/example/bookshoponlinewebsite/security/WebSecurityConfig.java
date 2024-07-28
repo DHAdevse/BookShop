@@ -34,7 +34,7 @@ public class WebSecurityConfig {
 //                .authenticationProvider(authenticationProvider(null, null))  // Spring sẽ tự động inject các dependencies
                 .authorizeHttpRequests(config -> config
                         .requestMatchers("admin/**","/login","cart/**","/index","book/**","detail/**","/css/**", "/img/**", "/js/**", "/lib/**", "/loginpage/**", "/mail/**", "/scss/**", "/registerpage/**", "/bootstrap-shop-template.jpg").permitAll()
-//                        .requestMatchers("admin/**").permitAll()
+//                        .requestMatchers("admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .formLogin(loginPage -> loginPage
