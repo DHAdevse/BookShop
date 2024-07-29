@@ -17,4 +17,6 @@ public interface BookService {
     List<Book> getAllBookOfPublisher(String publisherName);
     List<Book> getAllBookOfAuthor(String authorName);
     List<Book> getAllBook();
+
+    void update(Book newBook);
 }

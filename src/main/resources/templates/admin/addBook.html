@@ -381,7 +381,7 @@
             </div>
         </div>
         <!--  Book form start -->
-        <form th:action="@{/admin/process-add-book}" th:object="${book}" method="post" enctype="multipart/form-data">
+        <form th:action="@{admin/process-add-book}" th:object="${book}" method="post" enctype="multipart/form-data">
             <!-- Global errors -->
             <div th:if="${#fields.hasErrors('global')}" class="alert alert-danger">
                 <p th:each="err : ${#fields.errors('global')}" th:text="${err}"></p>

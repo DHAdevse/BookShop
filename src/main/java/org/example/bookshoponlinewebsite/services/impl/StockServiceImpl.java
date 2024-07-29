@@ -19,5 +19,10 @@ public class StockServiceImpl implements StockService {
         return stockRepository.saveAndFlush(stock);
     }
 
+    @Override
+    public Stock save(Stock stock) {
+        return stockRepository.save(stock);
+    }
+
 
 }

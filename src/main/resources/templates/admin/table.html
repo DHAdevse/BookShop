@@ -766,7 +766,6 @@
                                                     <th>PublishDate</th>
                                                     <th>Amount</th>
                                                     <th>Import Price</th>
-                                                    <th>Edit</th>
                                                     <th>Remove</th>
                                                 </tr>
                                             </thead>
@@ -787,10 +786,7 @@
                                                     <td th:text="${book.getDescription()}"></td>
                                                     <td th:text="${book.getPublishDate()}"></td>
                                                     <td th:text="${book.getStock?.getQuantity() ?: 0}"></td>
-                                                    <td th:text="${book.getStock().getImportPrice()} + '$'"></td>
-                                                    <td>
-                                                        <a href="#" class="btn btn-primary btn-sm">Edit</a>
-                                                    </td>
+                                                    <td th:text="${book.getStock?.getImportPrice() ?: 0}"></td>
                                                     <td>
                                                         <a th:href="@{admin/removeBook/{id}(id=${book.getBookId()})}" class="btn btn-danger btn-sm"
                                                            onclick="return confirm('Are you sure you want to delete this book?')">Remove</a>

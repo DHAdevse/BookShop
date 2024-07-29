@@ -38,11 +38,12 @@ public class Book {
     @Column(name="date_publish")
 //    @Temporal(TemporalType.DATE)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
+    @Temporal(TemporalType.DATE)
     private Date publishDate;
     @JoinColumn(name="category_id")
     @ManyToOne(fetch = FetchType.EAGER)
     private Category category;
-    @OneToOne
+    @OneToOne(cascade = CascadeType.MERGE)
     private Stock stock;
     @Column(name="image_book")
     private String imageBook;

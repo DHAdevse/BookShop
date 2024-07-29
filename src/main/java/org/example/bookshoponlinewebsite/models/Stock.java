@@ -18,4 +18,10 @@ public class Stock {
     private double importPrice;
     @OneToOne(fetch=FetchType.LAZY, cascade = CascadeType.ALL, mappedBy = "stock")
     private Book book;
+
+    public void addBook(Book book)
+    {
+        this.book = book;
+        book.setStock(this);
+    }
 }
